@@ -16,8 +16,8 @@ hook.Add 'TTTDamagelogsPlayerNameChanged', 'TTTDamagelogsChangeMySQLName', (ply)
         \start!
 
 
-hook.Add 'Think', 'TTTDamagelogsPlayerNameCheck', ->
-    for k, ply in ipairs(player.GetHumans!)
+hook.Add 'Think', 'TTTDamagelogsPlayerNameCheck', () ->
+    for ply in *player.GetHumans!
         if ply.dmglogJoinName and ply\Name! != ply.dmglogJoinName
             ply.dmglogJoinName = ply\Name!
             hook.Run('TTTDamagelogsPlayerNameChanged', ply)

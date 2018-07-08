@@ -61,7 +61,7 @@ PANEL =
                         \SetText(dmglog.GetTranslation('filters'))
                         .OnUpdate = (filters) ->
                             @OnFiltersUpdated! if @OnFiltersUpdated
-                    with highlightPanel = vgui.Create('DamagelogHighlightPanel', roundFormPanel)
+                    with @highlightPanel = vgui.Create('DamagelogHighlightPanel', roundFormPanel)
                         \SetSize(590, 60)
                         \SetPos(0, 30)
                     roundForm\AddItem(roundFormPanel)
