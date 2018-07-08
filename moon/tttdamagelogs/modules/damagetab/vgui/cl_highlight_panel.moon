@@ -27,7 +27,7 @@ PANEL =
                 .baseText = dmglog.GetTranslation('currently_highlighted_players')
                 .UpdateText = () =>
                     text = @baseText
-                    if #dmglog.highlightedPlayers == 0
+                    if table.Count(dmglog.highlightedPlayers) == 0
                         text ..= ' ' .. dmglog.GetTranslation('none')
                     @SetText(text)
                     @SizeToContents!
@@ -61,10 +61,11 @@ PANEL =
         @CreatePanels!        
 
     CreatePanels: () =>
+        @ClearPanels!
         @label\UpdateText!
         surface.SetFont('DL_Highlight')
         x = surface.GetTextSize(@label\GetText!) + 10
-        for roundPlayer in *dmglog.highlightedPlayers
+        for roundPlayer in pairs(dmglog.highlightedPlayers)
             with ply = vgui.Create('DamagelogHighlightedPlayer', self)
                 \SetRoundPlayer(roundPlayer)
                 \SetPos(x, 8)
