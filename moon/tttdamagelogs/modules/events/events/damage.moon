@@ -54,4 +54,4 @@ DamageEvent = do dmglog.RegisterEvent class extends dmglog.Event
             dmglog.CallEvent(damageEvent)
 
     @AddFilter 'non_team_damages', true, 'show_non_team_damages', (text, roundPlayers) =>
-        return @IsTeamkill(roundPlayers)
+        return not @IsTeamkill(roundPlayers)

@@ -23,9 +23,7 @@ class dmglog.Event
     ShouldBeDisplayed: (text, roundPlayers) =>
         if @@filters
             for filter in *@@filters
-                print('filter!!')
-                if not filter\Enabled! or filter.predicate(self, text, roundPlayers)
-                    print('returning false')
+                if not filter\Enabled! and filter.predicate(self, text, roundPlayers)
                     return false
         return true
 
