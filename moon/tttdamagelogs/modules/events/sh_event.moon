@@ -11,6 +11,8 @@ class dmglog.Event
 
     ToString: () => ''
 
+    GetColor: () => Color(0, 0, 0)
+
     GetRoleString: (role) =>
         return string.lower(dmglog.GetTranslatedRoleString(role))
 
@@ -21,7 +23,9 @@ class dmglog.Event
     ShouldBeDisplayed: (text, roundPlayers) =>
         if @@filters
             for filter in *@@filters
+                print('filter!!')
                 if not filter\Enabled! or filter.predicate(self, text, roundPlayers)
+                    print('returning false')
                     return false
         return true
 

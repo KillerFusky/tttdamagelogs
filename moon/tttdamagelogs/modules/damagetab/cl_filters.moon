@@ -35,6 +35,8 @@ dmglog.CreateFilter = (name, defaultValue, translationKey, predicate) ->
     if not currentValue
         sql.Query("INSERT INTO dmglog_filters (name, value) VALUES (#{escapedName}, #{escapedDefaultValue})")
         currentValue = defaultValue
-    filter = dmglog.Filter(name, currentValue == 1, translationKey, predicate)
+    else
+        currentValue = currentValue == '1'
+    filter = dmglog.Filter(name, currentValue, translationKey, predicate)
     dmglog.filters[name] = filter
     return filter

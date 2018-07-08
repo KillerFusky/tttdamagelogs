@@ -18,6 +18,17 @@ DamageEvent = do dmglog.RegisterEvent class extends dmglog.Event
             damages: @damages
         })
 
+    IsTeamkill: (roundPlayers) =>
+        attackerInformation = roundPlayers\GetById(@attackerId)
+        targetInformation = roundPlayers\GetById(@targetId)
+        return dmglog.IsTeamkill(attackerInformation.role, targetInformation.role)
+
+    GetColor: (roundPlayers) =>
+        if @IsTeamkill(roundPlayers)
+            return Color(255, 0, 0)
+        else
+            return Color(0, 0, 0)
+
     Send: () =>
         net.WriteUInt(@roundTime, 32)
         net.WriteUInt(@attackerId, 16)
@@ -43,6 +54,4 @@ DamageEvent = do dmglog.RegisterEvent class extends dmglog.Event
             dmglog.CallEvent(damageEvent)
 
     @AddFilter 'non_team_damages', true, 'show_non_team_damages', (text, roundPlayers) =>
-        attackerInformation = roundPlayers\GetById(@attackerId)
-        targetInformation = roundPlayers\GetById(@targetId)
-        return dmglog.IsTeamkill(attackerInformation.role, targetInformation.role)z
+        return @IsTeamkill(roundPlayers)

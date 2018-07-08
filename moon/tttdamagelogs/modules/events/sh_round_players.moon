@@ -15,7 +15,9 @@ class dmglog.RoundPlayers
 
     GetPlayerId: (ply) =>
         steamId = ply\SteamID!
-        return dmglog.table.FindKey(@list, (roundPlayer) -> roundPlayer.steamId == steamId) or false
+        name = ply\Name!
+        predicate = (roundPlayer) -> roundPlayer.steamId == steamId and (steamId != 'BOT' or roundPlayer.name == name)
+        return dmglog.table.FindKey(@list, predicate) or false
 
     GetById: (id) => @list[id]
 

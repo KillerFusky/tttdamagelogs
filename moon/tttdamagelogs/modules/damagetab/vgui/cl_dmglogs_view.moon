@@ -19,6 +19,9 @@ PANEL =
             displayedType = roundEvent.displayedType
             text = roundEvent\ToString(roundPlayers)
             if not roundEvent\ShouldBeDisplayed(text, roundPlayers) continue
-            @AddLine(displayedRoundTime, displayedType, text)
+            color = roundEvent\GetColor(roundPlayers)
+            with line = @AddLine(displayedRoundTime, displayedType, text)
+                .PaintOver = (line, w, h) ->
+                    column\SetTextColor(color) for column in *line.Columns
 
 vgui.Register('DamagelogListView', PANEL, 'DListView')

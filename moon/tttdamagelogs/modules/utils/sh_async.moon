@@ -1,3 +1,8 @@
+ResumeAndHandleError = (c, ...) ->
+    succeeded, errors = coroutine.resume(c, ...)
+    if not succeeded
+        error(errors)
+
 export class Promise
 
     new: (func) =>
@@ -10,21 +15,23 @@ export class Promise
         baseCoroutine = coroutine.running!
         startFunc = () ->
             resolve = (...) ->
-                coroutine.resume(baseCoroutine, ...)
+                ResumeAndHandleError(baseCoroutine, ...)
             self.func(resolve, @@reject)
         subCoroutine = coroutine.create(startFunc)
-        coroutine.resume(subCoroutine)
+        ResumeAndHandleError(subCoroutine)
         return coroutine.yield!
+
+    Then: (callback) =>
+        result = @Start!
+        callback(result)
 
 export async = (func) ->
     return (...) ->
         args = {...}
         coroutineFunc = () ->
             func(unpack(args))
-        c = coroutine.create(coroutineFunc)
-        succeeded, errors = coroutine.resume(c)
-        if not succeeded
-            error(errors)
+        mainCoroutine = coroutine.create(coroutineFunc)
+        ResumeAndHandleError(mainCoroutine)
 
 export await = (promise) ->
     return promise\Start!
