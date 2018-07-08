@@ -11,6 +11,7 @@ CREATE TABLE IF NOT EXISTS `damagelogs_punish`
   `date`         BIGINT       NOT NULL,
   `punishmentid` INT          NOT NULL,
   `player`       INT          NOT NULL,
+  `count`        INT          NOT NULL,
   `reason`       VARCHAR(255) NOT NULL,
   FOREIGN KEY (`player`) REFERENCES damagelogs_players (id),
   KEY (`player`)
