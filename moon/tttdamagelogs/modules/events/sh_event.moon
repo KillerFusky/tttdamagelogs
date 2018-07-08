@@ -1,4 +1,4 @@
-dmglog.events = dmglog.events or {} -- todo rename
+dmglog.events = dmglog.events or {}
 
 class dmglog.Event
 
@@ -8,6 +8,12 @@ class dmglog.Event
         else if SERVER
             currentRound = dmglog.eventsHandler\GetCurrentRound!
             @roundTime = currentRound.currentTime
+
+    ToTable: () =>
+        return {
+            roundTime: @roundTime,
+            eventType: @@eventType
+        }
 
     ToString: () => ''
 

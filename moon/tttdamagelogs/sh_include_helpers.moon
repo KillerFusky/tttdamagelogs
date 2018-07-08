@@ -1,5 +1,5 @@
 dmglog.IncludeSharedFile = (file) ->
-    AddCSLuaFile(file)
+    AddCSLuaFile(file) if SERVER
     return include(file)
 
 dmglog.IncludeClientFile = (file) ->

@@ -21,5 +21,12 @@ class dmglog.RoundPlayer
         role = net.ReadUInt(2)
         return dmglog.RoundPlayer(name, steamId, role)
 
+    ToTable: () =>
+        return {
+            name: @name,
+            steamId: @steamId,
+            role: @role
+        }
+
     @Create: (ply) ->
         return dmglog.RoundPlayer(ply\Name!, ply\SteamID!, ply\GetRole!)

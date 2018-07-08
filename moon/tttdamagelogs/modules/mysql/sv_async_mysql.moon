@@ -1,6 +1,6 @@
 dmglog.mysql = 
 
-    Query: (query) ->
+    QueryAsync: (query) ->
         return Promise (resolve, reject) ->
             query.onSuccess = () =>
                 resolve(false)

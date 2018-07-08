@@ -1,5 +1,7 @@
 DamageEvent = do dmglog.RegisterEvent class extends dmglog.Event
 
+    @eventType: 'damages'
+
     new: (attackerId, targetId, damages, roundTime = nil) => 
         super(roundTime)
         @SetDisplayedTypeKey('damage_event_type')
@@ -41,6 +43,17 @@ DamageEvent = do dmglog.RegisterEvent class extends dmglog.Event
         targetId = net.ReadUInt(16)
         damages = net.ReadUInt(16)
         return DamageEvent(attackerId, targetId, damages, roundTime)
+
+    ToTable: () =>
+        baseTable = super!
+        tbl = {
+            roundTime: @roundTime,
+            attackerId: @ttackerId,
+            targetId: @targetId,
+            damages: @damages
+        }
+        table.Merge(tbl, baseTable)
+        return tbl
 
     @AddServerHook 'EntityTakeDamage', (target, dmginfo) ->
         if not target\IsPlayer! return

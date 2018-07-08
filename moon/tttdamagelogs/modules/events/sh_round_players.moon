@@ -33,6 +33,11 @@ class dmglog.RoundPlayers
                 roundPlayer.role = ply\GetRole!
                 roundPlayer.onlyPlayedPreparation = false
 
+    ToTable: () =>
+        tbl = {}
+        table.insert(tbl, roundPlayer\ToTable!) for roundPlayer in *@list
+        return tbl 
+
     @Read: () ->
         list = {}
         for i = 1, net.ReadUInt(16)

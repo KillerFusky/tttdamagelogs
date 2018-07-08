@@ -13,7 +13,15 @@ class dmglog.RoundEvents
         net.WriteUInt(#@eventsList, 32)
         for event in *@eventsList
             net.WriteUInt(event.__class.id, 16)
-            event\Send! 
+            event\Send!
+
+    ToTable: () =>
+        tbl = {
+            roundPlayers: @roundPlayers\ToTable!
+            events: {}
+        }
+        table.insert(tbl.events, event\ToTable!) for event in *@eventsList
+        return tbl
 
     @Read: () ->
         roundPlayers = dmglog.RoundPlayers.Read!
