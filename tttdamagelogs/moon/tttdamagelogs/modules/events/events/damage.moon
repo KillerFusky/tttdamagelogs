@@ -56,7 +56,7 @@ DamageEvent = do dmglog.RegisterEvent class extends dmglog.Event
         return tbl
 
     @AddServerHook 'EntityTakeDamage', (target, dmginfo) ->
-        if not target\IsPlayer! return
+        if GetRoundState! != ROUND_ACTIVE or (not target\IsPlayer!) return
         attacker = dmginfo\GetAttacker!
         if attacker == target or not attacker\IsPlayer! return
         do 

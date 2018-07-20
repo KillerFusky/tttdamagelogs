@@ -7,6 +7,7 @@
         damagelog_tab_title: 'Damagelogs'
         
             -- Round Selection
+            no_round_available: 'No round available'
             round_selection: 'Round Selection'
             combobox_round: 'Round {roundNumber}'
             current_round: 'Current round'
